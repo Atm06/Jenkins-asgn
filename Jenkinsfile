@@ -70,4 +70,3 @@ pipeline{
               logDriver: 'awslogs',
               options: [
                 'awslogs-group': '/ecs/${params.APP_NAME}',
-              
