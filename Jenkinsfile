@@ -63,7 +63,7 @@ pipeline{
       containerDefinitions: [
         awsEcsContainerDefinition(
           name: "${params.APP_NAME}",
-          image: "${ecr}:${image},
+          image: "${ecr}:${image}",
           portMappings: [awsEcsPortMapping(containerPort: 80, protocol: 'tcp')],
           logConfiguraion: [
             awsEcsLogConfiguration(
