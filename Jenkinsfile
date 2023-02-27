@@ -55,7 +55,7 @@ pipeline{
   stage('Create Task Definition'){
     steps{
       withAWS(region: "${params.AWS_REGION}", credentials: 'aws-creds'){
-        ecsRegisterTaskDefinition(family: ${params.TASK_DEFINITION_NAME}", taskRoleArn: "{params.ECS_TASK_ROLE}", memory: "${params.ECS_TASK_MEMORY}", cpu: "${params.ECS_TASK_CPU}", containerDefinitions: """[
+        ecsRegisterTaskDefinition(family: "${params.TASK_DEFINITION_NAME}", taskRoleArn: "{params.ECS_TASK_ROLE}", memory: "${params.ECS_TASK_MEMORY}", cpu: "${params.ECS_TASK_CPU}", containerDefinitions: """[
           {
             "name": "${params.DOCKER_IMAGE_NAME}"
             "image": "${params.AWS_ACCOUNT_ID}.dkr.ecr.${params.AWS_REGION}.amazonaws.com/${params.ECR_REPOSITORY_NAME}:latest",
