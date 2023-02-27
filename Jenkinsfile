@@ -17,7 +17,7 @@ pipeline{
   stages{
     stage('clone Github repository'){
       steps{
-        git branch: 'master', url: 'https://github.com/Atm06/Jenkins-asgn.git'
+        git branch: 'main', url: 'https://github.com/Atm06/Jenkins-asgn.git'
       }
     }
     
