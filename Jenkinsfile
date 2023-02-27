@@ -69,4 +69,4 @@ pipeline{
             awsEcsLogConfiguration(
               logDriver: 'awslogs',
               options: [
-                'awslogs-group': '/ecs/${params.APP_NAME}',
+                'awslogs-group': '/ecs
