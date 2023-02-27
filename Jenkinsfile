@@ -52,21 +52,12 @@ pipeline{
     }
   }
   
-  def createTaskDefinition(image, ecr){
-    def taskDefinition = awsEcsTaskDefinition(
-      family: "${params.APP_NAME}",
-      networkMode: 'awsvpc',
-      requiresCompatibilities: ['FARGATE'],
-      cpu: "${params.ECS_TASK_CPU}",
-      memory: "${params.ECS_TASK_ROLE}",
-      taskRoleArn: 'ecsTaskExecutionRole',
-      containerDefinitions: [
-        awsEcsContainerDefinition(
-          name: "${params.APP_NAME}",
-          image: "${ecr}:${image}",
-          portMappings: [awsEcsPortMapping(containerPort: 80, protocol: 'tcp')],
-          logConfiguraion: [
-            awsEcsLogConfiguration(
-              logDriver: 'awslogs',
-              options: [
-                'awslogs-group': '/ecs
+  stage('Create Task Definition'){
+    steps{
+      withAWS(region: "${params.AWS_REGION}", credentials: 'aws-creds'){
+        ecsRegisterTaskDefinition(family: ${params.TASK_DEFINITION_NAME}", taskRoleArn: "{params.ECS_TASK_ROLE}", memory: "${params.ECS_TASK_MEMORY}", cpu: "${params.ECS_TASK_CPU}", containerDefinitions: """[
+          {
+            "name": "${params.DOCKER_IMAGE_NAME}"
+            "image": "${params.AWS_ACCOUNT_ID}.dkr.ecr.${params.AWS_REGION}.amazonaws.com/${params.ECR_REPOSITORY_NAME}:latest",
+              "essential": true,
+                "portMappings": [             {                 "containerport": ${params.DOCKER_CONTAINER_PORT},                 "protocol": "tcp"       }     ]
